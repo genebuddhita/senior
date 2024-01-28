@@ -1,27 +1,47 @@
 import React from 'react';
-import App from './App';
+import Navbar from './Navbar';
+import { useNavigate } from 'react-router-dom';
+import { Popover } from 'bootstrap';
+
 
 function Home()  {
+  const navigate = useNavigate();
+  
+
+
   return (
+  <main>
     <div>
-      <nav className="navbar navbar-light bg-black justify-content-between">
-        <a className="navbar-brand" href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NameID</a>
-        <form className="form-inline">
-          <button  className="btn btn-outline-light" type="button" disabled>Home</button>&nbsp;&nbsp;&nbsp;
-          <button className="btn btn-outline-light" type="button">Log out</button>&nbsp;&nbsp;&nbsp;
-        </form>
+      <Navbar></Navbar>
         <br></br>
-        <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="..."/>
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        </div>
-      </nav>
+        <div class="container" style={{ padding: '10px' }}>
+          <div class="row row-cols-md-5 g-4">
+              <div class="col mb-10">
+                <div class="card" style={{width: '13rem'}}>
+                  <img src="https://cdn-icons-png.flaticon.com/512/3426/3426653.png" class="card-img-top" alt="..."/>
+                  <div class="card-body">
+                    <h5 class="card-title">ClassName ID</h5>
+                    <p class="card-text">Semester year and section No</p>
+                    <button onClick={()=>navigate("/")} class="btn btn-primary">View course</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col mb-10">
+                <div class="card" style={{width: '13rem'}}>
+                  <img src="https://cdn-icons-png.flaticon.com/512/2103/2103473.png" class="card-img-top" alt="..."/>
+                  <div class="card-body">
+                    <h5 class="card-title">ClassName ID</h5>
+                    <p class="card-text">Semester year and section No</p>
+                    <a href="#" class="btn btn-primary">View course</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
+    </main>
   )
 };
 
-export default Home;
+export default Home
 
