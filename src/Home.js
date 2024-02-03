@@ -14,7 +14,7 @@ function Home()  {
     <div>
       <Navbar></Navbar>
         <br></br>
-        <div class="container" style={{ padding: '10px' }}>
+        <div class="container-lg mb-3 bg-light" style={{ padding: '10px' }}>
           <div class="row row-cols-md-5 g-4">
               <div class="col mb-10">
                 <div class="card" style={{width: '13rem'}}>
