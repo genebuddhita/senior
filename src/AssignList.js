@@ -31,7 +31,9 @@ function AssignList() {
             <h5>210xxx comp prog 2566/2 sec1</h5>
             <h6>Instructor: Name Surname</h6>
         </div>
+        <Link to="/StudentList">
         <button type="button" class="btn btn-secondary" style={{ marginLeft: 40 +'em'}}>Student lists</button>
+        </Link>
       </div>
 
       <br></br>
@@ -61,10 +63,10 @@ function AssignList() {
                                     </div>
                                   </div>
                                   <div class="col">
-                                    <span className="fw-bold">Publish date:</span> {labInfo.Publish}
+                                    <span className="fw-bold">Publish:</span> {labInfo.Publish}
                                   </div>
                                   <div class="col">
-                                    <span className="fw-bold">Due date:</span> {labInfo.Due}
+                                    <span className="fw-bold">Due:</span> {labInfo.Due}
                                   </div>
                                 </div>
                                 </div>

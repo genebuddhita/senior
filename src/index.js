@@ -10,12 +10,14 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Portfolio from './Portfolio';
 import AssignCreate from './AssignCreate';
 import AssignEdit from './AssignEdit';
 import Homeprof from './Homeprof';
 import Sentin from './Sentin';
 import AssignList from './AssignList';
+import StudentList from './StudentList';
+import ClassCreate from './ClassCreate';
+import ClassEdit from './ClassEdit';
 
 
 const router = createBrowserRouter([
@@ -30,10 +32,6 @@ const router = createBrowserRouter([
   {
     path: "Lab",
     element: <Lab/>,
-  },
-  {
-    path: "Portfolio",
-    element: <Portfolio/>,
   },
   {
     path: "AssignEdit",
@@ -54,7 +52,19 @@ const router = createBrowserRouter([
   {
     path: "AssignList",
     element: <AssignList/>,
-  }
+  },
+  {
+    path: "StudentList",
+    element: <StudentList/>,
+  },
+  {
+    path: "ClassCreate",
+    element: <ClassCreate/>,
+  },
+  {
+    path: "ClassEdit",
+    element: <ClassEdit/>,
+  },
   
 ]);
 

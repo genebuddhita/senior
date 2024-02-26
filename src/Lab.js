@@ -54,10 +54,10 @@ function Lab() {
                       <h5 class="card-title">Question {index + 1}</h5>
                       <div class="input-group mb-3">
                         <input type="file" class="form-control" id={`inputGroupFile02_${index}`}/>
-                          <label  className="input-group-text"
+                          <button class="btn btn-outline-primary" type="button"
                                   htmlFor={`inputGroupFile02_${index}`}
                                   onClick={() => handleUpload(index)}>Upload
-                          </label>
+                          </button>
                       </div>
                       <p class="card-text">Last Submitted: <span>{timestamp}</span></p>
                       <p class="card-text">Score: </p>
