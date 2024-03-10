@@ -1,8 +1,39 @@
 import React from 'react'
 import Navbarprof from './Navbarprof'
 import { Link } from 'react-router-dom'
+import { useState } from 'react';
 
 function Sentin() {
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [popoverContent, setPopoverContent] = useState('');
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [newScore, setNewScore] = useState('');
+
+  const togglePopover = (content) => {
+    setPopoverContent(content);
+    setPopoverOpen(!popoverOpen);
+  };
+  const handleClick = (item) => {
+    const scoreType = typeof item.score;
+    if (scoreType === 'string' && item.score.includes(',')) {
+      setSelectedRow(item);
+      togglePopover(<strong>History</strong>);
+    }
+  };
+  const data = [
+    { id: 6334412323, name: 'Kanok Rungrassameesab ', score: 90 },
+    { id: 6334421232, name: 'Pasit Pongpattana ', score: '85,16/03/2024' },
+    { id: 6334421223, name: 'Surapong Jarassopon', score: 95 },
+    // เพิ่มข้อมูลคนอื่นๆ ตามต้องการ
+  ];
+  const handleSubmit = () => {
+    // Logic to submit new score
+    console.log('New score submitted:', newScore);
+    // Reset input field and popover content
+    setNewScore('');
+    setPopoverOpen(false);
+  };
+
   return (
     <div>
         <Navbarprof></Navbarprof>
@@ -32,50 +63,52 @@ function Sentin() {
             </div>
             <br></br>
             <div class="card-body">
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="id or name" aria-label="Search"/>
-              <button class="btn btn-outline-primary" type="submit">Search</button>
-            </form>
-            </div>
-                <div class="accordion" style={{ marginLeft: 2 +'em', marginRight: 2 + 'em' }} id="accordionExample">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        6xxxxxxxxx <span style={{ margin: '0 10px' }}></span> Ant Baba
-                        </button>
-                      </h2>
-                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <strong>This is the first item's accordion body.</strong> 
+                  <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="id or name" aria-label="Search"/>
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                  </form>
+                  <br></br>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Score</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.map((item, index) => (
+                        <tr key={index} onClick={() => handleClick(item)} style={{ backgroundColor: (typeof item.score === 'string' && item.score.includes(',')) ? '#ff0000' : '' }}>
+                          <th scope="row">{index + 1}</th>
+                          <td>{item.id}</td>
+                          <td>{item.name}</td>
+                          <td>{item.score}</td>
+                        </tr>
+                      ))}
+                      </tbody>
+                    </table>
+                    {popoverOpen && selectedRow && (
+                      <div className="popover" style={{ display: 'block', position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
+                        <div className="popover-body">
+                          {popoverContent}
+                          <br></br>
+                          Last Submitted:
+                          <br></br>
+                          Score:
+                          <br></br>
+                          Last edited:
+                          <br></br>
+                          New Score:
+                          <input type="number" min="0" value={newScore} onChange={(e) => setNewScore(e.target.value)} />
+                          <button type="button" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+                          <button type="button" className="btn-close" aria-label="Close" onClick={() => setPopoverOpen(false)}  style={{ position: 'absolute', top: '0', right: '0' }}></button>
                         </div>
                       </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        6xxxxxxxxx <span style={{ margin: '0 10px' }}></span> Rest city
-                        </button>
-                      </h2>
-                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <strong>This is the second item's accordion body.</strong> 
-                          </div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                          6xxxxxxxxx <span style={{ margin: '0 10px' }}></span> Name Surname
-                        </button>
-                      </h2>
-                      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <strong>Q.1 sent Q.2 sent Q.3 none</strong> 
-                          </div>
-                      </div>
-                    </div>
-                  </div>
-                  <br></br>
+                    )}
+
+                        <br></br>
+            </div>
           </div>
 
 

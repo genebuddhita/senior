@@ -13,6 +13,7 @@ function AssignCreate() {
   const [section, setSection] = useState('');
   const [totalQNum, setTotalQNum] = useState('');
   const [scores, setScores] = useState([]);
+  const [submittedData, setSubmittedData] = useState(null); // เพิ่ม state สำหรับเก็บข้อมูลที่ถูกส่งไป
 
   const handleTotalQNumChange = (e) => {
     const numQuestions = parseInt(e.target.value, 10);
@@ -38,28 +39,47 @@ function AssignCreate() {
   };
 
   const handleButtonClick = () => {
+  
+  if (isFormValid()) {
+    // Set submitted data
+    const data = {
+      labNum,
+      labName,
+      link,
+      publishDate,
+      dueDate,
+      section,
+      totalQNum,
+      scores
+    };
+    setSubmittedData(data);
 
-    if (isFormValid()) {
-         // Reset the form fields
-        setLabNum('');
-        setLabName('');
-        setLink('');
-        setPublishDate('');
-        setDueDate('');
-        setSection('');
-        setTotalQNum('');
-        setShowAlert(true);
-        console.log('Form submitted!');
-    } else {
-      // Show an error message or handle invalid form
-      console.log('Please fill in all fields.');
-    }
-  };
+    // Reset the form fields
+    setLabNum('');
+    setLabName('');
+    setLink('');
+    setPublishDate('');
+    setDueDate('');
+    setSection('');
+    setTotalQNum('');
+    setScores([]);
+    
+    setShowAlert(true);
+    console.log('Form submitted!');
+  } else {
+    // Show an error message or handle invalid form
+    console.log('Please fill in all fields.');
+  }
+};
+
 
   const handleAlertClose = () => {
     // Hide the alert
     setShowAlert(false);
   };
+
+  const now = new Date();
+const currentDate = now.toISOString().split('T')[0];
   
   return (
     <div>
@@ -96,12 +116,42 @@ function AssignCreate() {
               <input type="text" class="form-control" id="inputlink" placeholder="link1, link2 or -" onChange={(e) => setLink(e.target.value)}/>
             </div>
             <div class="col-md-6">
-              <label for="PublishDate"class="form-label">Publish Date</label>
-              <input type="datetime-local" class="form-control" id="publishdate" onChange={(e) => setPublishDate(e.target.value)}/>
-            </div>
+            <label for="PublishDate" class="form-label">Publish Date</label>
+            <input
+              type="datetime-local"
+              class="form-control"
+              id="publishdate"
+              onChange={(e) => {
+                const selectedPublishDate = new Date(e.target.value);
+                const currentDate = new Date();
+                if (selectedPublishDate < currentDate) {
+                  alert('Publish Date cannot be in the past.');
+                  e.target.value = ''; // Clear the input value
+                } else {
+                  setPublishDate(e.target.value);
+                }
+              }}
+              min={currentDate}
+            />
+          </div>
             <div class="col-md-6">
-              <label for="DueDate"class="form-label">Due Date</label>
-              <input type="datetime-local" class="form-control" id="duedate" onChange={(e) => setDueDate(e.target.value)}/>
+              <label for="DueDate" class="form-label">Due Date</label>
+              <input
+                type="datetime-local"
+                class="form-control"
+                id="duedate"
+                onChange={(e) => {
+                  const selectedDueDate = new Date(e.target.value);
+                  const selectedPublishDate = new Date(publishDate);
+                  if (selectedDueDate < selectedPublishDate) {
+                    alert('Due Date must be after Publish Date.');
+                    e.target.value = ''; // Clear the input value
+                  } else {
+                    setDueDate(e.target.value);
+                  }
+                }}
+                min={currentDate}
+              />
             </div>
             <div class="col-md-6">
               <label for="inputQnum" class="form-label">Total Question Number</label>
@@ -140,13 +190,14 @@ function AssignCreate() {
               <button type="button" class="btn btn-primary" id="liveToastBtn" onClick={handleButtonClick} disabled={!isFormValid()}>Submit</button>
           </div>
 
-          {showAlert && (
-                  <div class="alert alert-success  d-flex align-items-center" role="alert">
-                  Create assignment success
-                  <button type="button" class="btn-close align-items-left" aria-label="Close" onClick={handleAlertClose}></button>
-                  </div>
-              )}
-       
+        {showAlert && (
+        <div className="alert alert-success d-flex align-items-center" role="alert">
+          Assignment created successfully
+          {/*<pre>{JSON.stringify(submittedData, null, 2)}</pre>*/}
+          <button type="button" className="btn-close align-items-left" aria-label="Close" onClick={handleAlertClose}></button>
+        </div>
+      )}
+   
 
         </form>
         </div>

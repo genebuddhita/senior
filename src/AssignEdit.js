@@ -10,6 +10,12 @@ function AssignEdit() {
     setShowAlert(true);
   };
 
+  
+  const [publishDate, setPublishDate] = useState('');
+  const [dueDate, setDueDate] = useState('');
+  const now = new Date();
+const currentDate = now.toISOString().split('T')[0];
+
   return (
     <div>
       <Navbarprof></Navbarprof> 
@@ -46,19 +52,49 @@ function AssignEdit() {
               <label for="LabName" class="form-label">Lab Name</label>
               <input type="name" class="form-control" id="LabName"/>
             </div>
-            
+            <div class="col-md-6">
+            <label for="PublishDate" class="form-label">Publish Date</label>
+            <input
+              type="datetime-local"
+              class="form-control"
+              id="publishdate"
+              onChange={(e) => {
+                const selectedPublishDate = new Date(e.target.value);
+                const currentDate = new Date();
+                if (selectedPublishDate < currentDate) {
+                  alert('Publish Date cannot be in the past.');
+                  e.target.value = ''; // Clear the input value
+                } else {
+                  setPublishDate(e.target.value);
+                }
+              }}
+              min={currentDate}
+            />
+          </div>
+            <div class="col-md-6">
+              <label for="DueDate" class="form-label">Due Date</label>
+              <input
+                type="datetime-local"
+                class="form-control"
+                id="duedate"
+                onChange={(e) => {
+                  const selectedDueDate = new Date(e.target.value);
+                  const selectedPublishDate = new Date(publishDate);
+                  if (selectedDueDate < selectedPublishDate) {
+                    alert('Due Date must be after Publish Date.');
+                    e.target.value = ''; // Clear the input value
+                  } else {
+                    setDueDate(e.target.value);
+                  }
+                }}
+                min={currentDate}
+              />
+            </div>
             <div class="col-12">
               <label for="inputlink" class="form-label">Attach Link</label>
               <input type="text" class="form-control" id="inputlink" placeholder="link1, link2"/>
             </div>
-            <div class="col-md-6">
-              <label for="PublishDate"class="form-label">Publish Date</label>
-              <input type="datetime-local" class="form-control" id="publishdate"/>
-            </div>
-            <div class="col-md-6">
-              <label for="DueDate"class="form-label">Due Date</label>
-              <input type="datetime-local" class="form-control" id="duedate"/>
-            </div>
+            
             <div class="col-md-6">
               <label for="inputQnum" class="form-label">Total Question Number</label>
               <input type="number" min="1" class="form-control" id="inputQnum"/>
