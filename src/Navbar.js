@@ -49,9 +49,11 @@ function Navbar() {
               <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
                 Cancel
               </button>
+              <Link to="/Login">
               <button type="button" className="btn btn-primary">
                 Exit
               </button>
+              </Link>
             </div>
           </div>
         </div>

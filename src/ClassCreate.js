@@ -6,10 +6,6 @@ import { useState } from 'react';
 function ClassCreate() {
     const [showAlert, setShowAlert] = useState(false);
 
-    const handleAlertClose = () => {
-        // Hide the alert
-        setShowAlert(false);
-      };
 
   const handleCreateClick = () => {
     // ทำสิ่งที่คุณต้องการเมื่อคลิกปุ่ม "Create" ที่นี่
@@ -32,7 +28,27 @@ function ClassCreate() {
       return newTimestamps;
     });
 };
+    const [classID, setClassID] = useState('');
+    const [schoolYear, setSchoolYear] = useState('');
+    const [semester, setSemester] = useState('');
+    const [className, setClassName] = useState('');
 
+    const handleClassIDChange = (e) => {
+        setClassID(e.target.value);
+      }
+      
+      const handleSchoolYearChange = (e) => {
+        setSchoolYear(e.target.value);
+      }
+      
+      const handleSemesterChange = (e) => {
+        setSemester(e.target.value);
+      }
+      
+      const handleClassNameChange = (e) => {
+        setClassName(e.target.value);
+      }
+      const isCreateButtonDisabled = !classID || !schoolYear || !semester || !className;
 
   return (
     <div>
@@ -40,25 +56,33 @@ function ClassCreate() {
       <br></br>
       <div class="card" style={{ marginLeft: 10 +'em', marginRight: 10 + 'em' }}>
         <div class="card-header">
-          <h4>Create Class</h4> 
+          <h5>Create Class</h5> 
         </div>
         <div class="card-body">
             <form class="row g-3">
-                <div class="col-md-6">
-                    <label for="inputID" class="form-label">Class ID</label>
-                    <input type="text" class="form-control" id="inputID"/>
+                <div class="col-md-5">
+                    <label for="inputID" class="form-label">Class ID*</label>
+                    <input type="text" class="form-control" id="inputID" placeholder="ex. 2301233 (7 digits number)" value={classID} onChange={handleClassIDChange} />
                 </div>
-                <div class="col-md-6">
-                    <label for="inputYear" class="form-label">School Year</label>
-                    <input type="text" class="form-control" id="inputYear"/>
+                <div class="col-md-5">
+                    <label for="inputYear" class="form-label">School Year*</label>
+                    <input type="text" class="form-control" id="inputYear" placeholder="ex. 2566 (4 digits number)" value={schoolYear} onChange={handleSchoolYearChange}/>
                 </div>
-                <div class="col-6">
-                    <label for="inputName" class="form-label">Class Name</label>
-                    <input type="text" class="form-control" id="inputClass" placeholder="Name"/>
+                <div class="col-md-2">
+                    <label for="inputSemester" class="form-label">Semester*</label>
+                    <br></br>
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" checked={semester === '1'}  onChange={handleSemesterChange}/>
+                    <label class="form-check-label" for="inlineRadio1">1 </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2" checked={semester === '2'} onChange={handleSemesterChange}/>
+                    <label class="form-check-label" for="inlineRadio2">2</label>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <label for="inputSection" class="form-label">Section No.</label>
-                    <input type="number" min="1" class="form-control" id="inputSection"/>
+                <div class="col-12">
+                    <label for="inputName" class="form-label">Class Name*</label>
+                    <input type="text" class="form-control" id="inputClass" placeholder="Name" value={className} onChange={handleClassNameChange}/>
                 </div>
                 <div class="col-6">
                     <label for="formGroupExampleInput2" class="form-label">Class Picture</label>
@@ -81,16 +105,15 @@ function ClassCreate() {
                     <button type="back" class="btn btn-primary">Back</button>
                 </Link>
                 <div>
-                    <button type="submit" class="btn btn-primary" onClick={handleCreateClick}>Create</button>
+                    <button type="ิbutton" class="btn btn-primary" disabled={isCreateButtonDisabled} onClick={handleCreateClick}>Create</button>
                     <br></br>   
                 </div>
-                
                 </div>
+                
                 {showAlert && (
                         <div className="alert alert-success d-flex align-items-center" role="alert">
                         Class created successfully
                         {/*<pre>{JSON.stringify(submittedData, null, 2)}</pre>*/}
-                        <button type="button" className="btn-close align-items-left" aria-label="Close" onClick={handleAlertClose}></button>
                         </div>
                     )}
             </form>

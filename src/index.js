@@ -18,6 +18,7 @@ import AssignList from './AssignList';
 import StudentList from './StudentList';
 import ClassCreate from './ClassCreate';
 import ClassEdit from './ClassEdit';
+import Login from './Login';
 
 
 const router = createBrowserRouter([
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
   {
     path: "ClassEdit",
     element: <ClassEdit/>,
+  },
+  {
+    path: "Login",
+    element: <Login/>,
   },
   
 ]);

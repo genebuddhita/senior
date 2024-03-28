@@ -14,6 +14,11 @@ function AssignList() {
           Publish: "12 Dec 2012",
           Due: "18 Dec 2012",
           LabNumber:"1",
+        }, Lab2: {
+          Name: "helloworld",
+          Publish: "12 Dec 2012",
+          Due: "18 Dec 2012",
+          LabNumber:"2",
         },
         
       },
@@ -39,9 +44,9 @@ function AssignList() {
       <br></br>
       <div class="card" style={{ marginLeft: 10 +'em', marginRight: 10 + 'em' }}>
         <div class="card-header">
-          Assignments
+          <h5 style={{ display: 'inline-block' }}>Assignments</h5>
           <span style={{ margin: '0 10px' }}></span>
-          <Link to="/AssignCreate">
+          <Link to="/AssignCreate" className="float-right">
           <button class="btn btn-outline-secondary" type="button" id="button-addon2">+ New</button>
           </Link>
         </div>
@@ -79,6 +84,11 @@ function AssignList() {
                     })}
                   </div>
                 ))}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <Link to="/Homeprof">
+                              <button type="button" class="btn btn-primary">Back</button> 
+                              </Link>
+                </div>
               </div>
         </div>
       </div>
